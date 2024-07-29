@@ -47,7 +47,12 @@
                                 <td>{{ $employee->service_commission }}</td>
                                 <td>{{ $employee->product_commission }}</td>
                                 <td>
-                                    <!-- Acciones como editar o eliminar -->
+                                    <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                                    <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -58,4 +63,3 @@
     </div>
 </main>
 @endsection
-
