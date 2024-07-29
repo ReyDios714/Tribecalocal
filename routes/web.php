@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,7 +64,12 @@ Route::group(['middleware' => ['auth']], function () {
       Route::resource('rol', 'RolController');
       Route::resource('user', 'UserController');
 
-	    
+      
+
+      Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
+      Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
+      Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
+
     
     });
 
