@@ -73,6 +73,45 @@
                     {{csrf_field()}}
                 </form>
             </li>
+            <li class="nav-title">Menú Productos</li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url('products')}}" onclick="event.preventDefault(); document.getElementById('products-index-form').submit();"><i class="icon-basket"></i> Productos</a>
+                <form id="products-index-form" action="{{url('products')}}" method="GET" style="display: none;">
+                    {{csrf_field()}}
+                </form>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url('products/create')}}" onclick="event.preventDefault(); document.getElementById('products-create-form').submit();"><i class="icon-basket-loaded"></i> Registrar Producto</a>
+                <form id="products-create-form" action="{{url('products/create')}}" method="GET" style="display: none;">
+                    {{csrf_field()}}
+                </form>
+            </li>
+            <!-- Enlaces para Categorías -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('categories.index') }}" onclick="event.preventDefault(); document.getElementById('categories-index-form').submit();"><i class="fa fa-list"></i> Categorías</a>
+                <form id="categories-index-form" action="{{ route('categories.index') }}" method="GET" style="display: none;">
+                    {{csrf_field()}}
+                </form>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('categories.create') }}" onclick="event.preventDefault(); document.getElementById('categories-create-form').submit();"><i class="fa fa-plus"></i> Registrar Categoría</a>
+                <form id="categories-create-form" action="{{ route('categories.create') }}" method="GET" style="display: none;">
+                    {{csrf_field()}}
+                </form>
+            </li>
+            <!-- Enlaces para Insumos -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('insumos.index') }}" onclick="event.preventDefault(); document.getElementById('insumos-index-form').submit();"><i class="fa fa-flask"></i> Insumos</a>
+                <form id="insumos-index-form" action="{{ route('insumos.index') }}" method="GET" style="display: none;">
+                    {{csrf_field()}}
+                </form>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('insumos.create') }}" onclick="event.preventDefault(); document.getElementById('insumos-create-form').submit();"><i class="fa fa-plus"></i> Registrar Insumo</a>
+                <form id="insumos-create-form" action="{{ route('insumos.create') }}" method="GET" style="display: none;">
+                    {{csrf_field()}}
+                </form>
+            </li>
         </ul>
     </nav>
     <button class="sidebar-minimizer brand-minimizer" type="button"></button>
