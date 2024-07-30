@@ -4,6 +4,9 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InsumoController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\BranchController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -97,6 +100,26 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/insumos/{insumo}', [InsumoController::class, 'update'])->name('insumos.update');
         Route::delete('/insumos/{insumo}', [InsumoController::class, 'destroy'])->name('insumos.destroy');
 
+        
+
+        // Rutas para Inventario
+        Route::get('/inventories', [InventoryController::class, 'index'])->name('inventories.index');
+        Route::get('/inventories/branch/{branch_id}', [InventoryController::class, 'byBranch'])->name('inventories.byBranch');
+        Route::get('/inventories/{inventory}/edit', [InventoryController::class, 'edit'])->name('inventories.edit');
+        Route::put('/inventories/{inventory}', [InventoryController::class, 'update'])->name('inventories.update');
+        Route::get('/inventories/{product}', [InventoryController::class, 'show'])->name('inventories.show');
+
+        // Rutas para Traspasos
+        Route::get('/inventories/transfer', [InventoryController::class, 'transferForm'])->name('inventories.transferForm');
+        Route::post('/inventories/transfer', [InventoryController::class, 'transfer'])->name('inventories.transfer');
+
+        // Rutas para Sucursales
+        Route::get('/branches', [BranchController::class, 'index'])->name('branches.index');
+        Route::get('/branches/create', [BranchController::class, 'create'])->name('branches.create');
+        Route::post('/branches', [BranchController::class, 'store'])->name('branches.store');
+        Route::get('/branches/{branch}/edit', [BranchController::class, 'edit'])->name('branches.edit');
+        Route::put('/branches/{branch}', [BranchController::class, 'update'])->name('branches.update');
+        Route::delete('/branches/{branch}', [BranchController::class, 'destroy'])->name('branches.destroy');
 
 
     
