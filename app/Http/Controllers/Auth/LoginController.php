@@ -4,38 +4,28 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    public function showLoginForm(){
-        return view('auth.login');
+    use AuthenticatesUsers;
+
+    protected $redirectTo = '/home';
+
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request){
-
-        $this->validateLogin($request);      
- 
-         if (Auth::attempt(['usuario' => $request->usuario,'password' => $request->password,'condicion'=>1])){
-             return redirect('/home');
-         }
-
-         return back()->withErrors(['usuario' => trans('auth.failed')])
-         ->withInput(request(['usuario']));
-     }
-
-     protected function validateLogin(Request $request){
-        $this->validate($request,[
-            'usuario' => 'required|string',
-            'password' => 'required|string'
-        ]);
-
+    protected function credentials(Request $request)
+    {
+        return $request->only($this->username(), 'password');
     }
 
-    public function logout(Request $request){
-        Auth::logout();
-        $request->session()->invalidate();
-        return redirect('/');
+    public function username()
+    {
+        return 'email';
     }
-
 }
+
+

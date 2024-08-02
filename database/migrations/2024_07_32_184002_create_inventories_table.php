@@ -14,12 +14,14 @@ class CreateInventoriesTable extends Migration
     public function up()
     {
         Schema::create('inventories', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id'); // Cambiado de 'id' a 'increments'
             $table->unsignedInteger('product_id');
-            $table->integer('quantity')->default(0);
+            $table->unsignedInteger('branch_id');
+            $table->integer('quantity');
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
         });
     }
 
@@ -33,3 +35,10 @@ class CreateInventoriesTable extends Migration
         Schema::dropIfExists('inventories');
     }
 }
+
+
+
+
+
+
+

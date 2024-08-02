@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
@@ -12,7 +10,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->get(); // Asegúrate de cargar la relación 'category'
+        $products = Product::with('category')->get();
         return view('products.index', compact('products'));
     }
 
@@ -107,5 +105,11 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('success', 'Producto eliminado exitosamente.');
     }
-}
 
+    // Método para mostrar un producto específico junto con sus inventarios
+    public function show($id)
+    {
+        $product = Product::with('inventories.branch')->findOrFail($id);
+        return view('products.show', compact('product'));
+    }
+}

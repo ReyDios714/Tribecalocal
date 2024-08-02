@@ -88,4 +88,27 @@ class InventoryController extends Controller
 
         return redirect()->route('inventories.index')->with('success', 'Traspaso realizado exitosamente.');
     }
+
+    public function create($branch_id)
+    {
+        $branch = Branch::findOrFail($branch_id);
+        $products = Product::all();
+        return view('inventories.create', compact('branch', 'products'));
+    }
+
+    public function store(Request $request, $branch_id)
+    {
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        Inventory::create([
+            'product_id' => $request->product_id,
+            'branch_id' => $branch_id,
+            'quantity' => $request->quantity,
+        ]);
+
+        return redirect()->route('inventories.byBranch', $branch_id)->with('success', 'Producto agregado al inventario exitosamente.');
+    }
 }

@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type'); // reventa, cabina, gasto, servicio, servicio_gasto
+            $table->string('type');
             $table->string('name')->nullable();
             $table->string('brand')->nullable();
             $table->integer('quantity_ml_grs')->nullable();
@@ -29,7 +29,7 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('category_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
@@ -40,6 +40,16 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
+        if (Schema::hasTable('inventories')) {
+            Schema::table('inventories', function (Blueprint $table) {
+                if (Schema::hasColumn('inventories', 'product_id')) {
+                    $table->dropForeign(['product_id']);
+                }
+            });
+        }
+
         Schema::dropIfExists('products');
     }
 }
+
+

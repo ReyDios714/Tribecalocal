@@ -37,6 +37,12 @@
                         {{csrf_field()}}
                     </form>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('inventories.create', $branch->id) }}" onclick="event.preventDefault(); document.getElementById('inventories-create-{{ $branch->id }}-form').submit();"><i class="fa fa-plus"></i> Agregar al Inventario {{ $branch->name }}</a>
+                    <form id="inventories-create-{{ $branch->id }}-form" action="{{ route('inventories.create', $branch->id) }}" method="GET" style="display: none;">
+                        {{csrf_field()}}
+                    </form>
+                </li>
             @endforeach
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('inventories.transferForm') }}" onclick="event.preventDefault(); document.getElementById('inventories-transfer-form').submit();"><i class="fa fa-exchange"></i> Traspaso de Inventario</a>
