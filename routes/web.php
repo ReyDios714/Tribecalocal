@@ -6,6 +6,7 @@ use App\Http\Controllers\InsumoController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\ClienteController;
 
 Route::group(['middleware' => ['guest']], function () {
     Route::get('/', 'Auth\LoginController@showLoginForm');
@@ -101,6 +102,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/branches/{branch}/edit', [BranchController::class, 'edit'])->name('branches.edit');
         Route::put('/branches/{branch}', [BranchController::class, 'update'])->name('branches.update');
         Route::delete('/branches/{branch}', [BranchController::class, 'destroy'])->name('branches.destroy');
+
+        
+
+        Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
+        Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
+        Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
+        Route::get('/clientes/{cliente}', [ClienteController::class, 'show'])->name('clientes.show');
+        Route::get('/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
+        Route::put('/clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
+        Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+
     });
 });
 

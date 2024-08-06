@@ -51,6 +51,7 @@
                 </form>
             </li>
             <!-- Otros enlaces -->
+        
             <!-- Enlaces para Productos -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('products.index') }}" onclick="event.preventDefault(); document.getElementById('products-index-form').submit();"><i class="icon-basket"></i> Productos</a>
@@ -90,6 +91,26 @@
                     {{csrf_field()}}
                 </form>
             </li>
+
+            <!-- Enlaces para Clientes -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('clientes.index') }}" onclick="event.preventDefault(); document.getElementById('clientes-index-form').submit();">
+                    <i class="fa fa-users"></i> Lista de Clientes
+                </a>
+                <form id="clientes-index-form" action="{{ route('clientes.index') }}" method="GET" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('clientes.create') }}" onclick="event.preventDefault(); document.getElementById('clientes-create-form').submit();">
+                    <i class="fa fa-user-plus"></i> Crear Cliente
+                </a>
+                <form id="clientes-create-form" action="{{ route('clientes.create') }}" method="GET" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+            </li>
+            <!-- Otros enlaces -->
+             
             <!-- Usuarios -->
             <li class="nav-item">
                 <a class="nav-link" href="{{url('user')}}" onclick="event.preventDefault(); document.getElementById('user-form').submit();"><i class="fa fa-user"></i> Usuarios</a>
