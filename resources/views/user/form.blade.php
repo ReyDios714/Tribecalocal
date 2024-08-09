@@ -6,6 +6,13 @@
 </div>
 
 <div class="form-group row">
+    <label class="col-md-3 form-control-label" for="usuario">Usuario</label>
+    <div class="col-md-9">
+        <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Ingrese el usuario" required>
+    </div>
+</div>
+
+<div class="form-group row">
     <label class="col-md-3 form-control-label" for="email">Correo</label>
     <div class="col-md-9">
         <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese el correo">

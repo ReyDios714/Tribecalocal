@@ -1,5 +1,7 @@
 <?php
 
+// app/User.php
+
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,22 +12,24 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password', 'idrol'
+        'name', 'usuario', 'email', 'password', 'idrol'
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    public function role()
+    public function getAuthIdentifierName()
     {
-        return $this->belongsTo(Role::class, 'idrol');
+        return 'usuario';
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->usuario;
     }
 }
+
 
 
 

@@ -16,12 +16,11 @@ class UserController extends Controller
             $sql = trim($request->get('buscarTexto'));
             $usuarios = DB::table('users')
                 ->join('roles', 'users.idrol', '=', 'roles.id')
-                ->select('users.id', 'users.name', 'users.email', 'users.idrol', 'roles.nombre as rol')
+                ->select('users.id', 'users.name', 'users.usuario', 'users.email', 'users.idrol', 'roles.nombre as rol')
                 ->where('users.name', 'LIKE', '%' . $sql . '%')
                 ->orderBy('users.id', 'desc')
                 ->paginate(6);
 
-            /*listar los roles en ventana modal*/
             $roles = DB::table('roles')
                 ->select('id', 'nombre', 'descripcion')
                 ->where('condicion', '=', '1')->get();
@@ -34,22 +33,10 @@ class UserController extends Controller
     {
         $user = new User();
         $user->name = $request->name;
+        $user->usuario = $request->usuario;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->idrol = $request->id_rol;
-
-        // Manejar la carga de la imagen
-        if ($request->hasFile('imagen')) {
-            $filenamewithExt = $request->file('imagen')->getClientOriginalName();
-            $filename = pathinfo($filenamewithExt, PATHINFO_FILENAME);
-            $extension = $request->file('imagen')->guessClientExtension();
-            $fileNameToStore = time() . '.' . $extension;
-            $path = $request->file('imagen')->storeAs('public/img/usuario', $fileNameToStore);
-        } else {
-            $fileNameToStore = "noimagen.jpg";
-        }
-
-        $user->imagen = $fileNameToStore;
+        $user->idrol = $request->idrol;
 
         $user->save();
         return Redirect::to("user");
@@ -59,26 +46,10 @@ class UserController extends Controller
     {
         $user = User::findOrFail($request->id_usuario);
         $user->name = $request->name;
+        $user->usuario = $request->usuario;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->idrol = $request->id_rol;
-
-        // Editar imagen
-        if ($request->hasFile('imagen')) {
-            if ($user->imagen != 'noimagen.jpg') {
-                Storage::delete('public/img/usuario/' . $user->imagen);
-            }
-
-            $filenamewithExt = $request->file('imagen')->getClientOriginalName();
-            $filename = pathinfo($filenamewithExt, PATHINFO_FILENAME);
-            $extension = $request->file('imagen')->guessClientExtension();
-            $fileNameToStore = time() . '.' . $extension;
-            $path = $request->file('imagen')->storeAs('public/img/usuario', $fileNameToStore);
-        } else {
-            $fileNameToStore = $user->imagen;
-        }
-
-        $user->imagen = $fileNameToStore;
+        $user->idrol = $request->idrol;
 
         $user->save();
         return Redirect::to("user");
@@ -88,9 +59,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail($request->id_usuario);
 
-        // Alternar la condición del usuario
-        $user->idrol = $user->idrol == '1' ? '0' : '1';
-        $user->save();
+        $user->delete();
+
         return Redirect::to("user");
     }
 }

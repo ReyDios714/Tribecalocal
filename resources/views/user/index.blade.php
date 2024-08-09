@@ -29,6 +29,7 @@
                     <thead>
                         <tr class="bg-primary">
                             <th>Nombre</th>
+                            <th>Usuario</th>
                             <th>Email</th>
                             <th>Rol</th>
                             <th>Editar</th>
@@ -39,10 +40,11 @@
                         @foreach($usuarios as $user)
                         <tr>
                             <td>{{ $user->name }}</td>
+                            <td>{{ $user->usuario }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->rol }}</td>
                             <td>
-                                <button type="button" class="btn btn-info btn-md" data-id_usuario="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-idrol="{{ $user->idrol }}" data-toggle="modal" data-target="#abrirmodalEditar">
+                                <button type="button" class="btn btn-info btn-md" data-id_usuario="{{ $user->id }}" data-name="{{ $user->name }}" data-usuario="{{ $user->usuario }}" data-email="{{ $user->email }}" data-idrol="{{ $user->idrol }}" data-toggle="modal" data-target="#abrirmodalEditar">
                                     <i class="fa fa-edit fa-2x"></i> Editar
                                 </button> &nbsp;
                             </td>
@@ -108,7 +110,7 @@
     </div>
     <!--Fin del modal-->
 
-    <!-- Inicio del modal Cambiar Estado del usuario -->
+    <!-- Inicio del modal Eliminar Usuario -->
     <div class="modal fade" id="cambiarEstado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-danger" role="document">
             <div class="modal-content">
